@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const state= {
-    userLogged:null,
+    userLogged:false,
     access_token:null,
     refresh_token:null
 };
@@ -13,7 +13,7 @@ const getters= {
 };
 
 const mutations= {
-    setUserLogged: (state,userLogged) => { state.userLogged = userLogged },
+    setUserLogged: (state,value) => { state.userLogged = value },
     setAccessToken: (state,access_token) => { state.access_token = access_token },
     setRefreshToken: (state,refresh_token) => { state.refresh_token = refresh_token },
 };
@@ -25,8 +25,10 @@ const actions = {
         console.log(response);
         commit('setUserLogged',response.data.user);
         commit('setAccessToken',response.data.access_token);
+        commit('setUserLogged',true);
         localStorage.setItem('access_token',response.data.access_token);
-        localStorage.setItem('refresh_token',response.data.refresh_token);
+
+        localStorage.setItem('setRefreshToken',response.data.refresh_token);
     }
 };
 
