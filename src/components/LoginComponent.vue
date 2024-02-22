@@ -31,7 +31,7 @@ export default {
     <form @submit.prevent="handleLogin">
         <input type="text" placeholder="username or email" v-model="username">
         <input type="password" placeholder="password" v-model="password">
-        <button type="submit">login</button>
+        <button class="btn btn-danger" type="submit">login</button>
     </form>
     <div id="token" v-if="accessToken">
             {{accessToken}}
