@@ -7,43 +7,34 @@ import noAuthGuard from "@/guards/noAuthGuard";
 
 const routes = [
     {
-      path: '/login',
-      name: 'login',
-      component: LoginView,
-      beforeEnter: noAuthGuard
+        path: '/login',
+        name: 'login',
+        component: LoginView,
+        beforeEnter: noAuthGuard
     },
     {
-      path: '/',
-      name: 'dashboard',
-      beforeEnter: authGuard,
-      component: DashboardView,//TO DO
-      children: [
-          {
-              path: '/home',
-              name: 'home',
-              component: HomepageView
-          }
-      ]
+        path: '/dashboard',
+        name: 'dashboard',
+        beforeEnter: authGuard,
+        component: DashboardView,
+        children: [
+            {
+                path: 'home',
+                name: 'home',
+                component: HomepageView
+            }
+        ]
+    },
+    {
+        path: '/',
+        redirect: '/dashboard/home'
     },
 
-  // {
-  //   path: '/',
-  //   name: 'home',
-  //   component: HomeView
-  // },
-  // {
-  //   path: '/about',
-  //   name: 'about',
-  //   // route level code-splitting
-  //   // this generates a separate chunk (about.[hash].js) for this route
-  //   // which is lazy-loaded when the route is visited.
-  //   component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
-  // }
 ]
 
 const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
-  routes
+    history: createWebHistory(process.env.BASE_URL),
+    routes
 })
 
 export default router

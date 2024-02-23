@@ -1,4 +1,5 @@
 import axios from "axios";
+import router from "@/router";
 
 const state= {
     userLogged:false,
@@ -20,15 +21,21 @@ const mutations= {
 
 const actions = {
     async login({commit},$credentials) {
-        const response = await axios.post('login', $credentials);
-        console.log(response.data.user);
-        console.log(response);
-        commit('setUserLogged',response.data.user);
-        commit('setAccessToken',response.data.access_token);
-        commit('setUserLogged',true);
-        localStorage.setItem('access_token',response.data.access_token);
+        try {
+            const response = await axios.post('login', $credentials);
+            console.log(response.data.user);
+            console.log(response);
+            commit('setUserLogged',response.data.user);
+            commit('setAccessToken',response.data.access_token);
+            commit('setRefreshToken',response.data.refresh_token);
+            commit('setUserLogged',true);
+            localStorage.setItem('access_token',response.data.access_token);
+            localStorage.setItem('refresh_token',response.data.refresh_token);
+            router.push('dashboard/home');
+        }catch (e) {
+            console.log('boh');
+        }
 
-        localStorage.setItem('setRefreshToken',response.data.refresh_token);
     }
 };
 
