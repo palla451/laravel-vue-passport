@@ -1,9 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import LoginView from "@/views/LoginView.vue";
 import authGuard from "@/guards/authGuard";
-import DashboardView from "@/views/DashboardView.vue";
-import HomepageView from "@/views/HomepageView.vue";
 import noAuthGuard from "@/guards/noAuthGuard";
+import HomepageView from "@/views/menu-page/HomepageView.vue";
+import AboutpageView from "@/views/menu-page/AboutpageView.vue";
+import ContentPageView from "@/views/ContentPageView.vue";
 
 const routes = [
     {
@@ -16,12 +17,17 @@ const routes = [
         path: '/dashboard',
         name: 'dashboard',
         beforeEnter: authGuard,
-        component: DashboardView,
+        component: ContentPageView,
         children: [
             {
                 path: 'home',
                 name: 'home',
                 component: HomepageView
+            },
+            {
+                path: 'about',
+                name: 'about',
+                component: AboutpageView
             }
         ]
     },

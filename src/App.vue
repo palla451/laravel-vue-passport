@@ -21,7 +21,6 @@ export default {
     methods: {
         async checkAuthStatus() {
             try {
-                console.log('here');
                 this.$store.dispatch('authLogged');
                 this.logged = this.$store.getters.getLogged;
             } catch (error) {
