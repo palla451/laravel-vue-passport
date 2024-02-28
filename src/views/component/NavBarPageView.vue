@@ -24,6 +24,14 @@ import ProfileBarComponent from "@/components/ProfileBarComponent.vue";
                         </a>
                     </router-link>
                 </li>
+                <li class="nav-item">
+                    <router-link to="/dashboard/users">
+                        <a href="#" class="nav-link align-middle px-0">
+                            <i class="fs-3 bi-people-fill"></i>
+                            <span class="ms-1 d-none d-sm-inline">Users</span>
+                        </a>
+                    </router-link>
+                </li>
                 <li>
                     <a href="#submenu3" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
                         <i class="fs-4 bi-grid"></i> <span class="ms-1 d-none d-sm-inline">Products</span> </a>

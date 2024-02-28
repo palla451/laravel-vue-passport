@@ -5,6 +5,7 @@ import noAuthGuard from "@/guards/noAuthGuard";
 import HomepageView from "@/views/menu-page/HomepageView.vue";
 import AboutpageView from "@/views/menu-page/AboutpageView.vue";
 import ContentPageView from "@/views/ContentPageView.vue";
+import UsersPageView from "@/views/menu-page/UsersPageView.vue";
 
 const routes = [
     {
@@ -28,6 +29,11 @@ const routes = [
                 path: 'about',
                 name: 'about',
                 component: AboutpageView
+            },
+            {
+                path: 'users',
+                name: 'users',
+                component: UsersPageView
             }
         ]
     },

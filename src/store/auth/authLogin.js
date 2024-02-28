@@ -35,7 +35,20 @@ const actions = {
             localStorage.setItem('refresh_token',response.data.refresh_token);
             router.push('dashboard/home');
         }catch (e) {
-            console.log('boh');
+            console.log(e.message);
+        }
+
+    },
+    async logout({commit},$credentials) {
+        try {
+            const response = await axios.get('logout', $credentials);
+            console.log(response);
+            localStorage.removeItem('access_token');
+            localStorage.removeItem('refresh_token');
+            commit('setUserLogged',false);
+            router.push('/login');
+        }catch (e) {
+            console.log(e.message);
         }
 
     }

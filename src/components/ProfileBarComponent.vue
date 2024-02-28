@@ -9,8 +9,13 @@ export default {
         },
         userLogged() {
             return this.$store.getters['getUserAuth'];
-        },
+        }
     },
+    methods:{
+        userLogout() {
+            return this.$store.dispatch('logout');
+        }
+    }
 }
 </script>
 
@@ -27,7 +32,7 @@ export default {
             <li>
                 <hr class="dropdown-divider">
             </li>
-            <li><a class="dropdown-item" href="#">Sign out</a></li>
+            <li  @click="userLogout"><a class="dropdown-item" @click="userLogout">Sign out</a></li>
         </ul>
     </div>
 </template>

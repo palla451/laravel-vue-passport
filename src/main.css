@@ -39,3 +39,13 @@ button{
 .sideline:after {
     margin: 0 0 0 20px;
 }
+
+
+.avatar {
+    vertical-align: middle;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    text-align: center;
+}
+
