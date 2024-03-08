@@ -1,8 +1,20 @@
 <script>
 import NavBarPageView from "@/views/component/NavBarPageView.vue";
+import router from "@/router";
 
 export default {
-    components: {NavBarPageView}
+    components: {NavBarPageView},
+    computed: {
+        userAuth() {
+            return this.$store.getters['getUserLogin'];
+        },
+    },
+    created() {
+        if (!this.userAuth){
+            debugger;
+           router.push({path:'/dashboard/home'})
+        }
+    }
 }
 </script>
 

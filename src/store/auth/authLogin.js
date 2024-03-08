@@ -39,10 +39,10 @@ const actions = {
         }
 
     },
-    async logout({commit},$credentials) {
+    async logout({commit}) {
         try {
-            const response = await axios.get('logout', $credentials);
-            console.log(response);
+            const response = await axios.post('logout',);
+            console.log('logout store :'+ response.data.message);
             localStorage.removeItem('access_token');
             localStorage.removeItem('refresh_token');
             commit('setUserLogged',false);

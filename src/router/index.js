@@ -41,6 +41,10 @@ const routes = [
         path: '/',
         redirect: '/dashboard/home'
     },
+    {
+        path: '/:catchAll(.*)', // Questa rotta cattura tutte le rotte non esistenti
+        redirect: '/dashboard/home' // Reindirizza a '/dashboard/home'
+    }
 
 ]
 

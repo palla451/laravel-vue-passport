@@ -32,7 +32,7 @@ export default {
             <li>
                 <hr class="dropdown-divider">
             </li>
-            <li  @click="userLogout"><a class="dropdown-item" @click="userLogout">Sign out</a></li>
+            <li  @click="userLogout"><a class="dropdown-item">Sign out</a></li>
         </ul>
     </div>
 </template>

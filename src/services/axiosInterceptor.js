@@ -26,7 +26,7 @@ axios.interceptors.response.use(
         // Se c'è stato un errore nella risposta
         if (error.response.status === 401) {
             // Reindirizza l'utente alla pagina di accesso o gestisci l'errore in base alle tue esigenze
-            router.push('login');
+            router.push('/login');
         }
         // Se ci sono altri tipi di errori, passali così come sono
         return Promise.reject(error);
