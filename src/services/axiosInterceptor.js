@@ -39,8 +39,8 @@ axios.interceptors.response.use(
                 // error.config.headers.Authorization = `Bearer ${response.data.access_token}`;
                 return axios(error.config);
             } catch (e) {
-                // commit('deleteAccessToken');
-                // commit('deleteRefreshToken');
+                store.commit('deleteAccessToken');
+                store.commit('deleteRefreshToken');
                 console.log("Impossibile aggiornare il token di accesso. Effettua nuovamente l'accesso.");
                 router.push('/login');
                 return Promise.reject(e);
