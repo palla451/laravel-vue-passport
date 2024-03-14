@@ -1,4 +1,5 @@
 import axios from "axios";
+import router from "@/router"; // Aggiungi l'import del router
 
 const state= {
     logged:false,
@@ -20,33 +21,30 @@ const mutations= {
 const actions = {
     async authLogged({commit}) {
         try {
+            debugger;
             const response = await axios.get('logged');
             console.log(response.data.username);
             commit('setLogged',true);
             commit('setUserAuth',response.data)
+            // Riprendi la rotta corrente dal localStorage
+            const currentRoute = localStorage.getItem('currentRoute');
+            console.log(currentRoute);
+            // Reindirizza l'utente alla rotta corrente
+            router.push(currentRoute);
         }catch (e) {
-            debugger;
-            console.log(e.response.status);
-            console.log(e.response.data.message);
-            debugger;
-            if (e.response.status === 401 && e.response.data.message === 'Unauthenticated') {
-                // Se il token è scaduto, richiedi un nuovo access token utilizzando il refresh token
-                await dispatch('refreshToken');
-                // Dopo aver ottenuto un nuovo token, riprova l'operazione originale
-            } else {
-                commit('deleteAccessToken');
-                commit('deleteRefreshToken');
+                // commit('deleteAccessToken');
+                // commit('deleteRefreshToken');
                 console.log(e.message);
-            }
         }
 
     },
-    async refreshToken({ commit }) {
+    async refreshToken({commit}) {
         try {
+            debugger
             // Ottieni il refresh token dalla localStorage
             const refreshToken = localStorage.getItem('refresh_token');
-            debugger;
             const response = await axios.post('refresh-token', { refresh_token: refreshToken });
+            debugger;
             // Aggiorna l'access token con quello appena ottenuto
             localStorage.setItem('access_token', response.data.access_token);
             localStorage.setItem('refresh_token', response.data.refresh_token);

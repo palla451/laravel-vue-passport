@@ -37,14 +37,14 @@ const routes = [
             }
         ]
     },
-    {
-        path: '/',
-        redirect: '/dashboard/home'
-    },
-    {
-        path: '/:catchAll(.*)', // Questa rotta cattura tutte le rotte non esistenti
-        redirect: '/dashboard/home' // Reindirizza a '/dashboard/home'
-    }
+    // {
+    //     path: '/',
+    //     redirect: '/dashboard/home'
+    // }
+    // {
+    //     path: '/:catchAll(.*)', // Questa rotta cattura tutte le rotte non esistenti
+    //     redirect: '/dashboard/home' // Reindirizza a '/dashboard/home'
+    // }
 
 ]
 
@@ -52,5 +52,12 @@ const router = createRouter({
     history: createWebHistory(process.env.BASE_URL),
     routes
 })
+
+// Gestisci il reindirizzamento alla posizione corrente
+router.beforeEach((to, from, next) => {
+    const currentRoute = to.fullPath;
+    localStorage.setItem('currentRoute', currentRoute);
+    next();
+});
 
 export default router

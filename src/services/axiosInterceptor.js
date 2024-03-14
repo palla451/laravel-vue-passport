@@ -1,6 +1,7 @@
 import axios from "axios";
 import VueAxios from "vue-axios";
 import router from "@/router";
+import store from "@/store";
 
 
 axios.defaults.baseURL = process.env.VUE_APP_BASE_URI;
@@ -17,18 +18,34 @@ axios.interceptors.request.use(
     }
 );
 
+// Interceptor per il refresh del token
 axios.interceptors.response.use(
     (response) => {
-        // Se la risposta è stata ricevuta con successo, restituisci la risposta
         return response;
     },
-    (error) => {
-        // Se c'è stato un errore nella risposta
-        if (error.response.status === 401) {
-            // Reindirizza l'utente alla pagina di accesso o gestisci l'errore in base alle tue esigenze
-            router.push('/login');
+    async (error) => {
+        if (error.response.status === 401 && !error.config._retry) {
+
+            error.config._retry = true;
+            try {
+                debugger
+                // const refreshToken = localStorage.getItem('refresh_token');
+                debugger
+                await  store.dispatch('refreshToken')
+                // const response = await axios.post('refresh-token', { refresh_token: refreshToken });
+                debugger
+                // localStorage.setItem('access_token', response.data.access_token);
+                // localStorage.setItem('refresh_token', response.data.refresh_token);
+                // error.config.headers.Authorization = `Bearer ${response.data.access_token}`;
+                return axios(error.config);
+            } catch (e) {
+                // commit('deleteAccessToken');
+                // commit('deleteRefreshToken');
+                console.log("Impossibile aggiornare il token di accesso. Effettua nuovamente l'accesso.");
+                router.push('/login');
+                return Promise.reject(e);
+            }
         }
-        // Se ci sono altri tipi di errori, passali così come sono
         return Promise.reject(error);
     }
 );

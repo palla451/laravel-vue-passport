@@ -11,7 +11,6 @@ export default {
     },
     created() {
         if (!this.userAuth){
-            debugger;
            router.push({path:'/dashboard/home'})
         }
     }

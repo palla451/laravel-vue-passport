@@ -25,6 +25,7 @@ const mutations= {
 const actions = {
     async login({commit},$credentials) {
         try {
+            debugger;
             const response = await axios.post('login', $credentials);
             commit('setUserLogged',true);
             commit('setAccessToken',response.data.access_token);
