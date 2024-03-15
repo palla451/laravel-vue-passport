@@ -25,26 +25,18 @@ axios.interceptors.response.use(
     },
     async (error) => {
         if (error.response.status === 401 && !error.config._retry) {
-
             error.config._retry = true;
-            try {
-                debugger
-                // const refreshToken = localStorage.getItem('refresh_token');
-                debugger
-                await  store.dispatch('refreshToken')
-                // const response = await axios.post('refresh-token', { refresh_token: refreshToken });
-                debugger
-                // localStorage.setItem('access_token', response.data.access_token);
-                // localStorage.setItem('refresh_token', response.data.refresh_token);
-                // error.config.headers.Authorization = `Bearer ${response.data.access_token}`;
-                return axios(error.config);
-            } catch (e) {
+            const refreshToken = (localStorage.getItem('refresh_token'));
+            if(refreshToken===null || refreshToken==='undefined'){
                 store.commit('deleteAccessToken');
                 store.commit('deleteRefreshToken');
-                console.log("Impossibile aggiornare il token di accesso. Effettua nuovamente l'accesso.");
+                localStorage.removeItem('refresh_token');
+                localStorage.removeItem('refresh_token');
                 router.push('/login');
-                return Promise.reject(e);
+            }else {
+                await store.dispatch('refreshToken');
             }
+
         }
         return Promise.reject(error);
     }
